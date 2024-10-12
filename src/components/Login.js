@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from './Header';
 import { useState , useRef } from 'react';
-import { LoginValidate } from '../utils/validation';
+import { LoginValidate , SignupValidate } from '../utils/validation';
 
 const Login = () => {
 
@@ -9,16 +9,23 @@ const [isSignin,setIsSignin] = useState(true);
 const [formType,setFormType] = useState("Sign In");
 const email = useRef(null);
 const password = useRef(null);
-const [errMsg,setErrMsg] = useState(null)
+const [ErrMsg,setErrMsg] = useState(null)
+const name = useRef(null);
 
 
 const toggleForm = () => {
   setIsSignin(!isSignin);
   (isSignin ? setFormType("Sign Up") : setFormType("Sign In") );
+  setErrMsg(null);
 }
 
 const handleLoginClick = () => {
   const msg = LoginValidate(email.current.value,password.current.value);
+  setErrMsg(msg);
+}
+
+const handleSignupClick = () => {
+  const msg = SignupValidate(name.current.value,email.current.value,password.current.value);
   setErrMsg(msg);
 }
 
@@ -38,14 +45,14 @@ const handleLoginClick = () => {
                 <form className='p-4' onSubmit={(e)=>e.preventDefault()}>
                     <div className='flex flex-col items-center space-y-6'>
                     {!isSignin && 
-                    <input type="text" placeholder='Name' className='w-full p-1 bg-gray-800 border-2 border-gray-700 rounded-md'/>
+                    <input ref={name} type="text" placeholder='Name' className='w-full p-1 bg-gray-800 border-2 border-gray-700 rounded-md'/>
                     }
                     <input ref={email} type='text' placeholder='Email address' className='mt-2 w-full rounded-md p-1 bg-gray-800 border-2 border-gray-700'/>
                     <input ref={password} type='password' placeholder='Password ' className='w-full  rounded-md p-1 bg-gray-800 border-2 border-gray-700'/>
-                    {errMsg && 
-                    <p className='text-base text-red-700 font-semibold'>{errMsg}</p>
+                    {ErrMsg && 
+                    <p className='text-base text-red-700 font-semibold'>{ErrMsg}</p>
                     }
-                    <button onClick={handleLoginClick} className='bg-red-700 text-white rounded-lg py-1.5 px-6 font-semibold text-[18px] hover:bg-white hover:text-red-800 transform transition-all duration-200 hover:scale-103'>{formType}</button>
+                    <button onClick={formType === "Sign In" ? handleLoginClick : handleSignupClick} className='bg-red-700 text-white rounded-lg py-1.5 px-6 font-semibold text-[18px] hover:bg-white hover:text-red-800 transform transition-all duration-200 hover:scale-103'>{formType}</button>
                     </div>
                     <p className='pt-6 text-[17px] font-medium'>{isSignin ? "New to Netflix?" : "Have an Account?"} <span className='hover:underline cursor-pointer' onClick={toggleForm}>{isSignin ? "Sign up here !" : "Sign in here !!"}</span></p>
 
