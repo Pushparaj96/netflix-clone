@@ -2,6 +2,8 @@ import React from 'react'
 import Header from './Header';
 import { useState , useRef } from 'react';
 import { LoginValidate , SignupValidate } from '../utils/validation';
+import { createUserWithEmailAndPassword , signInWithEmailAndPassword} from "firebase/auth";
+import { auth } from '../utils/firebase';
 
 const Login = () => {
 
@@ -9,7 +11,7 @@ const [isSignin,setIsSignin] = useState(true);
 const [formType,setFormType] = useState("Sign In");
 const email = useRef(null);
 const password = useRef(null);
-const [ErrMsg,setErrMsg] = useState(null)
+const [ErrMsg,setErrMsg] = useState(null);
 const name = useRef(null);
 
 
@@ -22,15 +24,53 @@ const toggleForm = () => {
 const handleLoginClick = () => {
   const msg = LoginValidate(email.current.value,password.current.value);
   setErrMsg(msg);
+// returns if any error while submission
+  if(msg) return;
+
+  // logic for signin (firebase auth)
+
+signInWithEmailAndPassword(auth, email.current.value,password.current.value)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user);
+    
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    setErrMsg(`${errorCode}-${errorMessage}`);
+  });
 }
 
 const handleSignupClick = () => {
   const msg = SignupValidate(name.current.value,email.current.value,password.current.value);
   setErrMsg(msg);
+  // returns if any error while submission
+  if(msg) return;
+
+  console.log("api call made");
+  // logic for signup user post call (firebase)
+  createUserWithEmailAndPassword(auth, email.current.value,password.current.value)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    console.log(user);
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    setErrMsg(`${errorCode}-${errorMessage}`);
+    // ..
+  });
+  
+
 }
 
   return (
-    <div className='login-background h-screen relative'>
+    <div className='login-background min-h-screen relative'>
         <div className='absolute inset-0 bg-black bg-opacity-50'></div>
         <Header/>
          <div className='relative mt-8'>
