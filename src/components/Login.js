@@ -2,11 +2,16 @@ import React from 'react'
 import Header from './Header';
 import { useState , useRef } from 'react';
 import { LoginValidate , SignupValidate } from '../utils/validation';
-import { createUserWithEmailAndPassword , signInWithEmailAndPassword} from "firebase/auth";
+import { createUserWithEmailAndPassword , signInWithEmailAndPassword , updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlicer';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
+const dispatch = useDispatch();
+const navigate = useNavigate();
 const [isSignin,setIsSignin] = useState(true);
 const [formType,setFormType] = useState("Sign In");
 const email = useRef(null);
@@ -22,8 +27,11 @@ const toggleForm = () => {
 }
 
 const handleLoginClick = () => {
+  // validating signin
+
   const msg = LoginValidate(email.current.value,password.current.value);
   setErrMsg(msg);
+
 // returns if any error while submission
   if(msg) return;
 
@@ -33,30 +41,49 @@ signInWithEmailAndPassword(auth, email.current.value,password.current.value)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    console.log(user);
+    //console.log(user);
+    const {email,displayName,uid} = user;
+    dispatch(addUser({uid:uid,email:email,displayName:displayName}));
+    navigate("/browse");
     
     // ...
   })
   .catch((error) => {
-    const errorCode = error.code;
     const errorMessage = error.message;
-    setErrMsg(`${errorCode}-${errorMessage}`);
+    setErrMsg(`${errorMessage}`);
   });
 }
 
 const handleSignupClick = () => {
+  // validating signup form
   const msg = SignupValidate(name.current.value,email.current.value,password.current.value);
   setErrMsg(msg);
   // returns if any error while submission
   if(msg) return;
 
-  console.log("api call made");
+  //console.log("api call made");
   // logic for signup user post call (firebase)
   createUserWithEmailAndPassword(auth, email.current.value,password.current.value)
   .then((userCredential) => {
     // Signed up 
     const user = userCredential.user;
-    console.log(user);
+    updateProfile(user, {
+      displayName: name.current.value, photoURL: "https://example.com/jane-q-user/profile.jpg"
+    }).then(() => {
+      // Profile updated!
+      const {uid,email,displayName} = auth.currentUser;
+      dispatch(addUser({
+        uid:uid,
+        email:email,
+        displayName:displayName
+      }))
+      navigate("/browse");
+      //console.log(user);
+    }).catch((error) => {
+      // An error occurred
+        setErrMsg(error.message);
+    });
+   
     // ...
   })
   .catch((error) => {
@@ -65,8 +92,6 @@ const handleSignupClick = () => {
     setErrMsg(`${errorCode}-${errorMessage}`);
     // ..
   });
-  
-
 }
 
   return (
