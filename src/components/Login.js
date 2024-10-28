@@ -93,7 +93,7 @@ const handleSignupClick = () => {
 
   return (
     <div className='login-background min-h-screen relative'>
-        <div className='absolute inset-0 bg-black bg-opacity-50'></div>
+        <div className='absolute inset-0 bg-black bg-opacity-55'></div> 
         <Header/>
          <div className='relative mt-8'>
             <div className='bg-black text-white bg-opacity-65 p-8 rounded-xl w-7/12  md:w-5/12 lg:w-3/12 form-container mx-auto right-0 left-0'>
