@@ -26,9 +26,11 @@ const App = () => {
 
 
   return (
-    <Provider store={appStore}>
+    <>
+      <Provider store={appStore}>
       <RouterProvider router={appRouter} />
-    </Provider>
+      </Provider>
+    </>
   )
 }
 

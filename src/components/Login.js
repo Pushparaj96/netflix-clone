@@ -6,12 +6,10 @@ import { createUserWithEmailAndPassword , signInWithEmailAndPassword , updatePro
 import { auth } from '../utils/firebase';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlicer';
-import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
 const dispatch = useDispatch();
-const navigate = useNavigate();
 const [isSignin,setIsSignin] = useState(true);
 const [formType,setFormType] = useState("Sign In");
 const email = useRef(null);
@@ -44,7 +42,6 @@ signInWithEmailAndPassword(auth, email.current.value,password.current.value)
     //console.log(user);
     const {email,displayName,uid} = user;
     dispatch(addUser({uid:uid,email:email,displayName:displayName}));
-    navigate("/browse");
     
     // ...
   })
@@ -56,28 +53,28 @@ signInWithEmailAndPassword(auth, email.current.value,password.current.value)
 
 const handleSignupClick = () => {
   // validating signup form
+
   const msg = SignupValidate(name.current.value,email.current.value,password.current.value);
   setErrMsg(msg);
+
   // returns if any error while submission
   if(msg) return;
 
-  //console.log("api call made");
-  // logic for signup user post call (firebase)
+  // Signed up 
   createUserWithEmailAndPassword(auth, email.current.value,password.current.value)
   .then((userCredential) => {
-    // Signed up 
     const user = userCredential.user;
+    // to update display name from null to user entered value
     updateProfile(user, {
-      displayName: name.current.value, photoURL: "https://example.com/jane-q-user/profile.jpg"
+      displayName: name.current.value
     }).then(() => {
       // Profile updated!
-      const {uid,email,displayName} = auth.currentUser;
+      const {uid,email,displayName} = auth.currentUser;  // updating the store with display name , auth.currentUser holds the updated value
       dispatch(addUser({
         uid:uid,
         email:email,
         displayName:displayName
       }))
-      navigate("/browse");
       //console.log(user);
     }).catch((error) => {
       // An error occurred

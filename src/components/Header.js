@@ -1,10 +1,10 @@
-import React from 'react';
+import { useEffect } from 'react';
 import logo from '../assets/logo.png';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../utils/firebase';
-import { removeUser } from '../utils/userSlicer';
+import { addUser ,removeUser } from '../utils/userSlicer';
 import { useDispatch } from 'react-redux';
 
 
@@ -16,18 +16,39 @@ const Header = () => {
 
 
   const handleSignout = () => {
+    
     signOut(auth).then(() => {
       // Sign-out successful.
-      navigate("/");
-      dispatch(removeUser());
-
-
     }).catch((error) => {
       // An error happened.
       navigate("/error");
     });
     
   }
+
+  // controlling routing of signed in user / new user 
+
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const { uid , email , displayName } = user;
+        dispatch(addUser({
+          uid:uid,
+          email:email,
+          displayName:displayName
+        }));
+        navigate("/browse");
+
+        // ...
+      } else {
+        // User is signed out
+        dispatch(removeUser());
+        navigate("/") ;
+      }
+    });
+  },[])
 
   return (
     <div className='relative flex justify-between items-center px-10'>
