@@ -9,7 +9,7 @@ const Browse = () => {
     useGetNowPlaying();
 
     return (
-        <div>
+        <div >
             <Header/>
             <MainContainer/>
             <SecondaryContainer/>
