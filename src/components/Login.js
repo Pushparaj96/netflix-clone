@@ -93,9 +93,9 @@ const handleSignupClick = () => {
 
   return (
     <div className='login-background min-h-screen relative'>
-        <div className='absolute inset-0 bg-black bg-opacity-55'></div> 
+        <div className='absolute inset-0 bg-black bg-opacity-40'></div> 
         <Header/>
-         <div className='relative mt-8'>
+         <div className='relative pt-[12%]'>
             <div className='bg-black text-white bg-opacity-65 p-8 rounded-xl w-7/12  md:w-5/12 lg:w-3/12 form-container mx-auto right-0 left-0'>
                     <div className='flex gap-1 items-center pb-5'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-7 mt-1">

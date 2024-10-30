@@ -57,7 +57,7 @@ const Header = () => {
   },[])
 
   return (
-    <div className={`relative flex justify-between items-center px-10 ${isBrowsePage ? "bg-gradient-to-b from-black to-gray-700" : ""}`}>
+    <div className={`absolute z-10 w-screen flex justify-between items-center px-10 ${isBrowsePage ? "bg-gradient-to-b from-black" : ""}`}>
         <img src={LOGO} alt="logo" className='h-[148px] w-[200px] ms-10 cursor-pointer'/>
 
         {/* logout button */}
