@@ -2,7 +2,7 @@
 
 const TrailerMovieInfo = ({title,overview}) => {
   return (
-    <div className="absolute z-10 pt-[22%] pl-12 space-y-8 text-white bg-gradient-to-tr from-black aspect-video w-full ">
+    <div className="absolute z-10 pt-[17%] pl-12 space-y-8 text-white bg-gradient-to-tr from-black aspect-video w-full ">
        <p className="text-3xl font-bold">{title}</p>
        <p className="w-1/3 text-base font-semibold">{overview}</p>
        <div className="flex items-center">
