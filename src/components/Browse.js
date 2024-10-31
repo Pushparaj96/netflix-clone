@@ -3,9 +3,13 @@ import MainContainer from './MainContainer';
 import SecondaryContainer from './SecondaryContainer';
 import { addNowPlayingMovies , addPopularMovies , addTopratedMovies , addUpcomingMovies } from '../utils/moviesSlice';
 import useGetMoviesByCategory from '../customHooks/useGetMoviesByCategory';
+import { useSelector } from 'react-redux';
+import GptSearch from './GptSearch';
 
 
 const Browse = () => {
+
+    const showGptSearch = useSelector(store=>store?.gpt?.showGptSearch);
 
     //useGetMoviesByCategory(api,dispatchAction) ==> custom Hook
 
@@ -18,8 +22,14 @@ const Browse = () => {
     return (
         <div >
             <Header/>
-            <MainContainer/>
-            <SecondaryContainer/>
+            {
+                showGptSearch ? <GptSearch/> : (
+                    <>
+                    <MainContainer/>
+                    <SecondaryContainer/>
+                    </>
+                )
+            }         
         </div>
     )
 }

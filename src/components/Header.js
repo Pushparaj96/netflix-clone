@@ -7,6 +7,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../utils/firebase';
 import { addUser ,removeUser } from '../utils/userSlicer';
 import { useDispatch } from 'react-redux';
+import { setShowGptSearch } from '../utils/gptSlice';
 
 
 const Header = () => {
@@ -16,6 +17,7 @@ const Header = () => {
   const user = useSelector((store)=>store.user);
   const navigate = useNavigate();
   const isBrowsePage = location.pathname === "/browse";
+  
 
 
   const handleSignout = () => {
@@ -54,7 +56,11 @@ const Header = () => {
 
     // unsubscribes when the component unmounts
     return () => unsubscribe ();
-  },[])
+  },[]);
+
+  const handleGptSearchClick = () => {
+      dispatch(setShowGptSearch());
+  }
 
   return (
     <div className={`absolute z-30 w-full flex justify-between items-center px-10  ${isBrowsePage ? "bg-gradient-to-b from-black" : ""}`}>
@@ -63,6 +69,7 @@ const Header = () => {
         {/* logout button */}
         { user &&
           <div className='flex items-center'>
+          <button className='bg-transparent border-2 border-green-300 opacity-75 text-green-400 me-3 px-4 py-1 rounded-md font-extrabold hover:scale-105 transition duration-150' onClick={handleGptSearchClick}>GPT Search</button>
           <img src={USER_AVATAR} alt='avatar' className='size-7 mr-2 hover:scale-105 transition duration-150 cursor-pointer' />
           <span className='font-bold text-lg text-red-600 hover:scale-105 transition duration-150 cursor-pointer'>{user.displayName} ,</span>
           <button className='font-semibold hover:underline hover:scale-105 transition duration-150 px-2 text-lg text-white' onClick={handleSignout}>Logout</button>
