@@ -7,3 +7,5 @@ export const TMDB_OPTIONS = {
 };
 
 export const TMDB_IMG_URL = "https://image.tmdb.org/t/p/w500" ;
+
+export const LANGUAGE_OPTIONS = [{identifier:"en",name:"English"},{identifier:"tam",name:"Tamil"}];
