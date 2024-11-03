@@ -6,6 +6,10 @@ const SUPPORTED_LANGUAGES = {
     tam:{
         searchBtnText:"தேடல்",
         searchInputPlaceholder:"உங்கள் மனதில் என்ன இருக்கிறது !"
+    },
+    kan:{
+        searchBtnText:"ಹುಡುಕು",
+        searchInputPlaceholder:"ನಿಮ್ಮ ಮನಸ್ಸಿನಲ್ಲಿ ಏನಿದೆ !"
     }
 }
 
