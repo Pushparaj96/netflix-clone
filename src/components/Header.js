@@ -20,6 +20,7 @@ const Header = () => {
   const navigate = useNavigate();
   const isBrowsePage = location.pathname === "/browse";
   const isShowGptSearch = useSelector(store=>store?.gpt?.showGptSearch);
+  const selectedLang = useSelector(store=>store?.appConfig?.language);
   
 
 
@@ -63,7 +64,6 @@ const Header = () => {
 
   const handleGptSearchClick = () => {
       dispatch(setShowGptSearch());
-      dispatch(changeAppLanguage("en"));
   }
 
   const handleLanguageChange = (e) =>{
@@ -79,7 +79,7 @@ const Header = () => {
           <div className='flex items-center'>
           {
             isShowGptSearch && 
-            <select className='me-3 py-1 px-2 rounded-md outline-none text-lg font-semibold cursor-pointer' onChange={handleLanguageChange}>
+            <select className='me-3 py-1 px-2 rounded-md outline-none text-lg font-semibold cursor-pointer' value={selectedLang} onChange={handleLanguageChange}>
             {
               LANGUAGE_OPTIONS.map(lang=>(
                 <option key={lang.identifier} value={lang.identifier} className='font-semibold'>{lang.name}</option>
