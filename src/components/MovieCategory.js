@@ -1,12 +1,11 @@
 import MovieCard from "./MovieCard";
 
-
 const MovieCategory = ({categoryName,categoryMovies}) => {
-
+    
 
   return (
     <div>
-        <div className="py-6">
+        <div className="py-5">
             <h2 className="text-2xl">{categoryName}</h2>
         </div>
         <div className="flex overflow-x-scroll gap-x-5 no-scrollbar">

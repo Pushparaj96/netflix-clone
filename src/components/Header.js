@@ -11,6 +11,7 @@ import { setShowGptSearch } from '../utils/gptSlice';
 import { LANGUAGE_OPTIONS } from '../utils/constants';
 import { changeAppLanguage } from '../utils/appConfigSlice';
 import SUPPORTED_LANGUAGES from '../utils/languageConstants';
+import { clearGptSearchResults } from '../utils/gptSlice';
 
 
 const Header = () => {
@@ -65,6 +66,7 @@ const Header = () => {
 
   const handleGptSearchClick = () => {
       dispatch(setShowGptSearch());
+      dispatch(clearGptSearchResults());
   }
 
   const handleLanguageChange = (e) =>{
