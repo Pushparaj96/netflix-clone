@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { setShowGptSearch } from '../utils/gptSlice';
 import { LANGUAGE_OPTIONS } from '../utils/constants';
 import { changeAppLanguage } from '../utils/appConfigSlice';
+import SUPPORTED_LANGUAGES from '../utils/languageConstants';
 
 
 const Header = () => {
@@ -102,7 +103,7 @@ const Header = () => {
           
           <img src={USER_AVATAR} alt='avatar' className='size-7 mr-2 hover:scale-105 transition duration-150 cursor-pointer' />
           <span className='font-bold text-lg text-red-600 hover:scale-105 transition duration-150 cursor-pointer'>{user.displayName} ,</span>
-          <button className='font-semibold hover:underline hover:scale-105 transition duration-150 px-2 text-lg text-white' onClick={handleSignout}>Logout</button>
+          <button className='font-semibold hover:underline px-2 text-lg text-white' onClick={handleSignout}>{SUPPORTED_LANGUAGES[selectedLang].logoutBtnText}</button>
           </div>
         }
     </div>
