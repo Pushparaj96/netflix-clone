@@ -1,10 +1,12 @@
 import { TMDB_OPTIONS } from "../utils/constants";
 import { useEffect } from "react";
 import { addBackgroundTrailer } from "../utils/moviesSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector } from "react-redux";
 
 
 const useGetTrailerVideo = (id) => {
+
+    const trailerData = useSelector(store=>store?.movies?.backgroundTrailer);
 
     const dispatch = useDispatch();
 
@@ -18,7 +20,7 @@ const useGetTrailerVideo = (id) => {
     }
 
     useEffect(()=>{
-        getTrailer();
+       !trailerData && getTrailer();
     },[])
 }
 

@@ -10,13 +10,14 @@ import GptSearchPage from './GptSearchPage';
 const Browse = () => {
 
     const showGptSearch = useSelector(store=>store?.gpt?.showGptSearch);
+    const { nowPlayingMovies , popularMovies , topratedMovies , upcomingMovies} = useSelector(store=>store?.movies)
 
     //useGetMoviesByCategory(api,dispatchAction) ==> custom Hook
 
-    useGetMoviesByCategory("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",addNowPlayingMovies);
-    useGetMoviesByCategory("https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",addPopularMovies);
-    useGetMoviesByCategory("https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",addTopratedMovies);
-    useGetMoviesByCategory("https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",addUpcomingMovies);
+    useGetMoviesByCategory("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",addNowPlayingMovies,nowPlayingMovies);
+    useGetMoviesByCategory("https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",addPopularMovies,popularMovies);
+    useGetMoviesByCategory("https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",addTopratedMovies,topratedMovies);
+    useGetMoviesByCategory("https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",addUpcomingMovies,upcomingMovies);
 
 
     return (

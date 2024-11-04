@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { TMDB_OPTIONS } from "../utils/constants";
 
-const useGetMoviesByCategory  = (api,dispatchAction) => {
+const useGetMoviesByCategory  = (api,dispatchAction,dataInStore) => {
 
     const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ const useGetMoviesByCategory  = (api,dispatchAction) => {
     }
 
     useEffect(()=>{
-        fetchData();
+       !dataInStore && fetchData();
     },[])
 
 }
