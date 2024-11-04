@@ -12,7 +12,7 @@ const BackgroundTrailer = ({id}) => {
   const { key } = backgroundTrailerInfo;
 
   return (
-    <div>
+    <div className="pt-48 md:pt-0 bg-black md:opacity-85  relative">
     <iframe className="w-full aspect-video" src={`https://www.youtube.com/embed/${key}?&autoplay=1&mute=1`} title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
     </div>
     

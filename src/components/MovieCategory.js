@@ -5,8 +5,8 @@ const MovieCategory = ({categoryName,categoryMovies}) => {
 
   return (
     <div>
-        <div className="py-5">
-            <h2 className="text-2xl">{categoryName}</h2>
+        <div className="md:py-5 py-3">
+            <h2 className="md:text-2xl text-lg">{categoryName}</h2>
         </div>
         <div className="flex overflow-x-scroll gap-x-5 no-scrollbar">
             {
