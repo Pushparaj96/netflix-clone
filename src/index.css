@@ -6,6 +6,8 @@
     background-image: url('/src/assets/netflix-bg.jpg');
     background-position: center;
     background-size: cover;
+    min-height: 100dvh;
+    object-fit: cover;
 }
 .no-scrollbar::-webkit-scrollbar {
     display: none; /* Chrome, Safari, and Opera */
